@@ -1,0 +1,11 @@
+.product-title-detail { font-size: 1.25rem; font-weight: 500; }
+.price-box { background-color: #fafafa; border-radius: 4px; }
+.option-label { width: 110px; display: inline-block; color: #757575; font-size: 14px; }
+.option-list { display: inline-block; }
+.active-variant { border-color: #ee4d2d !important; color: #ee4d2d !important; }
+.main-img { max-height: 400px; object-fit: contain; }
+.thumb-img { width: 60px; height: 60px; cursor: pointer; }
+.section-header { background-color: #f5f5f5; padding: 10px 15px; font-size: 1.1rem; }
+.info-table .row { font-size: 14px; }
+.btn-danger { background-color: #ee4d2d; border: none; }
+.btn-outline-danger { border-color: #ee4d2d; color: #ee4d2d; background: rgba(255,87,34,.1); }

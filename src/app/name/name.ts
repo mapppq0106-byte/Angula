@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router'; // 1. Import Router để điều hướng
 
 @Component({
   selector: 'app-name',
@@ -16,6 +17,9 @@ export class Name implements OnInit {
   // Biến điều khiển Layout (Mặc định là true - hiển thị dạng lưới)
   isGridLayout: boolean = true;
 
+  // 2. Inject Router vào Constructor
+  constructor(private router: Router) {}
+
   ngOnInit() {
     // 1. Khởi tạo trạng thái mặc định cho từng sản phẩm nhận được
     if (this.productList && this.productList.length > 0) {
@@ -32,6 +36,12 @@ export class Name implements OnInit {
     setTimeout(() => {
       this.emitTotal();
     });
+  }
+
+  // Hàm điều hướng sang trang chi tiết sản phẩm
+  goToDetail(productId: number) {
+    // Chuyển hướng đến đường dẫn /product/ID
+    this.router.navigate(['/product', productId]);
   }
 
   // Hàm tính tổng số tiền của tất cả sản phẩm 

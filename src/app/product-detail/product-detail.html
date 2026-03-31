@@ -1,0 +1,98 @@
+<div class="container mt-4 mb-5">
+  <!-- Nút quay lại -->
+  <button class="btn btn-light mb-3" (click)='goBack()'>
+    <i class="bi bi-arrow-left"></i> Quay lại trang chủ
+  </button>
+
+  <div class="product-main-card shadow-sm p-4 bg-white">
+    <div class="row">
+      <!-- Cột trái: Hình ảnh -->
+      <div class="col-md-5 text-center">
+        <img [src]="selectedVariant?.images[0]" class="img-fluid main-img" alt="Product">
+        <div class="thumbnail-list mt-3 d-flex justify-content-center gap-2">
+          @for (img of selectedVariant?.images; track img) {
+            <img [src]="img" class="thumb-img border" [class.active]="true">
+          }
+        </div>
+      </div>
+
+      <!-- Cột phải: Thông tin đặt hàng -->
+      <div class="col-md-7">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb small">
+            <li class="breadcrumb-item text-primary">Shopee</li>
+            <li class="breadcrumb-item">Điện Thoại & Phụ Kiện</li>
+            <li class="breadcrumb-item active">Đế giữ điện thoại</li>
+          </ol>
+        </nav>
+
+        <h1 class="product-title-detail">{{product?.name}}</h1>
+        
+        <div class="rating-info mb-3">
+          <span class="text-danger fw-bold border-bottom border-danger me-2">4.7</span>
+          <i class="bi bi-star-fill text-danger small"></i>
+          <span class="ms-3 text-muted">| 16,6k Đánh giá</span>
+        </div>
+
+        <div class="price-box p-3 mb-4">
+          <h2 class="text-danger mb-0">{{selectedVariant?.price | number}}₫</h2>
+        </div>
+
+        <!-- Phân loại -->
+        <div class="option-row mb-3">
+          <span class="option-label">PHÂN LOẠI</span>
+          <div class="option-list">
+            @for (v of product?.variants; track v.colorName) {
+              <button class="btn btn-outline-secondary btn-sm me-2" 
+                      [class.active-variant]="selectedVariant === v"
+                      (click)="selectVariant(v)">
+                {{v.colorName}}
+              </button>
+            }
+          </div>
+        </div>
+
+        <!-- Số lượng -->
+        <div class="option-row mb-4">
+          <span class="option-label">SỐ LƯỢNG</span>
+          <div class="d-flex align-items-center">
+            <div class="quantity-group border d-flex">
+              <button class="btn" (click)="updateQuantity(-1)">-</button>
+              <input type="text" class="form-control text-center border-0" [value]="quantity" style="width: 50px;">
+              <button class="btn" (click)="updateQuantity(1)">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-3">
+          <button class="btn btn-outline-danger px-4 py-2">Thêm Vào Giỏ Hàng</button>
+          <button class="btn btn-danger px-5 py-2">Mua Ngay</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHẦN CHI TIẾT & MÔ TẢ (HÌNH 2) -->
+  <div class="product-info-section mt-4 shadow-sm p-4 bg-white">
+    <h5 class="section-header">CHI TIẾT SẢN PHẨM</h5>
+    <div class="info-table mt-3">
+      <div class="row mb-2">
+        <div class="col-3 text-muted">Danh Mục</div>
+        <div class="col-9 text-primary">Shopee > Điện thoại & Phụ kiện > Gậy đuôi khỉ</div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-3 text-muted">Loại bảo hành</div>
+        <div class="col-9">Không bảo hành</div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-3 text-muted">Gửi từ</div>
+        <div class="col-9">Hà Nam</div>
+      </div>
+    </div>
+
+    <h5 class="section-header mt-5">MÔ TẢ SẢN PHẨM</h5>
+    <div class="description-content mt-3 text-secondary" style="white-space: pre-line;">
+      {{product?.description}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+.container { display: flex; gap: 40px; padding: 20px; }
+.row { display: flex; width: 100%; }
+.col-left, .col-right { flex: 1; padding: 20px; border: 1px solid #ddd; }
+.field { margin-bottom: 15px; }
+.field label { display: block; font-weight: bold; }
+input, select { width: 100%; padding: 8px; margin-top: 5px; }
+small { color: red; font-size: 12px; }
+.preview-box { background: #f9f9f9; padding: 15px; border-radius: 5px; }
+button:disabled { background: #ccc; cursor: not-allowed; }
+button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 4px; }

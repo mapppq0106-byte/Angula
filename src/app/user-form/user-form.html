@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-left">
+      <h2>Thông tin người dùng</h2>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        
+        <div class="field">
+          <label>Username:</label>
+          <input formControlName="username" placeholder="Bắt đầu bằng chữ, không ký tự đặc biệt">
+          <small *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched">Sai định dạng username.</small>
+        </div>
+
+        <div class="field">
+          <label>Họ và tên:</label>
+          <input formControlName="fullName">
+          <small *ngIf="userForm.get('fullName')?.invalid && userForm.get('fullName')?.touched">Ít nhất 2 từ, không chứa số.</small>
+        </div>
+
+        <div class="field">
+          <label>Email:</label>
+          <input type="email" formControlName="email">
+        </div>
+
+        <div class="field">
+          <label>Tuổi (18-60):</label>
+          <input type="number" formControlName="age">
+        </div>
+
+        <div class="field">
+          <label>Giới tính:</label>
+          <select formControlName="gender">
+            <option value="">Chọn giới tính</option>
+            <option value="Male">Nam</option>
+            <option value="Female">Nữ</option>
+            <option value="Other">Khác</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Hình đại diện:</label>
+          <input type="underline" type="file" (change)="onFileChange($event)" accept="image/*">
+          <small class="error" *ngIf="imageError">{{imageError}}</small>
+        </div>
+
+        <button type="submit" [disabled]="userForm.invalid">Submit</button>
+      </form>
+    </div>
+
+    <div class="col-right">
+      <h2>Preview</h2>
+      <div class="preview-box">
+        <p><strong>Username:</strong> {{userForm.value.username}}</p>
+        <p><strong>Họ tên:</strong> {{userForm.value.fullName}}</p>
+        <p><strong>Email:</strong> {{userForm.value.email}}</p>
+        <p><strong>Tuổi:</strong> {{userForm.value.age}}</p>
+        <p><strong>Giới tính:</strong> {{userForm.value.gender}}</p>
+        <div *ngIf="imagePreview">
+          <p><strong>Ảnh:</strong></p>
+          <img [src]="imagePreview" style="max-width: 200px; border-radius: 8px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

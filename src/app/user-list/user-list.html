@@ -1,0 +1,18 @@
+@if (loading()) {
+<div class="text-center p-4">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+} @else {
+@if (users().length === 0) {
+<div class="alert alert-info">No users found.</div>
+} @else {
+<div class="user-list-container">
+  @for (u of users(); track u.id) {
+  <app-user-item [user]="u" (edit)="onEdit($event)" (delete)="onDelete($event)" (selectUser)="onSelect($event)">
+  </app-user-item>
+  }
+</div>
+}
+}

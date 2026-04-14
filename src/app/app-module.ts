@@ -1,27 +1,39 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common'; // Quan trọng để dùng | number
+import { ReactiveFormsModule } from '@angular/forms';
+import { provideHttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing-module';
-import { AppComponent } from './app'; 
-import { Name } from './name/name';
-import { ProductDetailComponent } from './product-detail/product-detail'; // Đã sửa đường dẫn và tên class
+import { App } from './app';
+import { UserForm } from './user-form/user-form';
+import { Api } from './api/api';
+import { UserList } from './user-list/user-list';
+import { UserItem } from './user-item/user-item';
+import { UserCreate } from './user-create/user-create';
+import { UserEdit } from './user-edit/user-edit';
+import { UserDetail } from './user-detail/user-detail';
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    Name, 
-    ProductDetailComponent
+    App,
+    Api,
+    UserList,
+    UserItem,
+    UserCreate,
+    UserEdit,
+    UserDetail,
   ],
   imports: [
-    BrowserModule, 
-    CommonModule, 
-    AppRoutingModule
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule, // Hỗ trợ xử lý Form Validation
+    UserForm, // Standalone Component thì phải import vào đây
   ],
   providers: [
-    provideBrowserGlobalErrorListeners(), 
-    provideClientHydration(withEventReplay())
+    provideBrowserGlobalErrorListeners(),
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(), // Hỗ trợ gọi API lấy bài viết từ server
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [App],
 })
 export class AppModule {}

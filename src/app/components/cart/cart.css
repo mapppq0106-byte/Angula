@@ -1,0 +1,9 @@
+.delete-icon {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.delete-icon:hover {
+  color: #dc3545 !important; /* Màu đỏ của Bootstrap khi hover */
+  transform: scale(1.1);
+}

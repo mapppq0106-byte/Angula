@@ -1,98 +1,110 @@
-<div class="container mt-4 mb-5">
-  <!-- Nút quay lại -->
-  <button class="btn btn-light mb-3" (click)='goBack()'>
-    <i class="bi bi-arrow-left"></i> Quay lại trang chủ
-  </button>
-
-  <div class="product-main-card shadow-sm p-4 bg-white">
+<div class="product-detail-container shadow-sm" *ngIf="product">
+  <div class="product-main-info card border-0 p-4 mb-4">
     <div class="row">
-      <!-- Cột trái: Hình ảnh -->
-      <div class="col-md-5 text-center">
-        <img [src]="selectedVariant?.images[0]" class="img-fluid main-img" alt="Product">
-        <div class="thumbnail-list mt-3 d-flex justify-content-center gap-2">
-          @for (img of selectedVariant?.images; track img) {
-            <img [src]="img" class="thumb-img border" [class.active]="true">
-          }
+      <div class="col-md-5">
+        <div class="main-image-wrapper position-relative">
+           <img [src]="selectedImage" class="img-fluid main-image mb-3" alt="Product">
+           <div class="voucher-tag-orange">4.4 VOUCHER XTRA</div>
+        </div>
+        <div class="d-flex gap-2">
+          <img *ngFor="let img of selectedVariant.images" [src]="img" 
+               (click)="selectedImage = img" 
+               class="img-thumbnail" 
+               [class.active-thumb]="selectedImage === img"
+               style="width: 80px; cursor: pointer;">
+        </div>
+        <div class="share-section mt-3 d-flex align-items-center">
+          <span class="me-2 small">Chia sẻ:</span>
+          <i class="bi bi-messenger text-primary mx-1"></i>
+          <i class="bi bi-facebook text-info mx-1"></i>
+          <i class="bi bi-pinterest text-danger mx-1"></i>
+          <span class="ms-auto small"><i class="bi bi-heart text-danger me-1"></i> Đã thích (2,8k)</span>
         </div>
       </div>
 
-      <!-- Cột phải: Thông tin đặt hàng -->
       <div class="col-md-7">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb small">
-            <li class="breadcrumb-item text-primary">Shopee</li>
-            <li class="breadcrumb-item">Điện Thoại & Phụ Kiện</li>
-            <li class="breadcrumb-item active">Đế giữ điện thoại</li>
-          </ol>
-        </nav>
+        <h1 class="product-title">
+          <span class="badge-shopee">Yêu thích</span> {{product.name}}
+        </h1>
 
-        <h1 class="product-title-detail">{{product?.name}}</h1>
-        
-        <div class="rating-info mb-3">
-          <span class="text-danger fw-bold border-bottom border-danger me-2">4.7</span>
-          <i class="bi bi-star-fill text-danger small"></i>
-          <span class="ms-3 text-muted">| 16,6k Đánh giá</span>
+        <div class="d-flex align-items-center mb-3 small">
+          <span class="text-danger border-bottom border-danger me-2">{{product.rating}}</span>
+          <div class="text-danger me-3">★★★★★</div>
+          <div class="border-start ps-3 me-3">{{product.reviews}} Đánh Giá</div>
         </div>
 
-        <div class="price-box p-3 mb-4">
-          <h2 class="text-danger mb-0">{{selectedVariant?.price | number}}₫</h2>
+        <div class="price-box">
+          <span class="old-price">₫{{selectedVariant.oldPrice | number}}</span>
+          <span class="current-price">₫{{getCurrentPrice() | number}}</span>
+          <span class="badge bg-danger ms-2">44% GIẢM</span>
         </div>
 
-        <!-- Phân loại -->
-        <div class="option-row mb-3">
-          <span class="option-label">PHÂN LOẠI</span>
-          <div class="option-list">
-            @for (v of product?.variants; track v.colorName) {
-              <button class="btn btn-outline-secondary btn-sm me-2" 
-                      [class.active-variant]="selectedVariant === v"
-                      (click)="selectVariant(v)">
-                {{v.colorName}}
-              </button>
-            }
+        <div class="d-flex align-items-center mb-3">
+          <span class="label">PHÂN LOẠI</span>
+          <div class="d-flex flex-wrap">
+            <button *ngFor="let v of product.variants" 
+                    class="variant-btn" 
+                    [class.active]="selectedVariant === v"
+                    (click)="selectVariant(v)">
+              {{v.colorName}}
+            </button>
           </div>
         </div>
 
-        <!-- Số lượng -->
-        <div class="option-row mb-4">
-          <span class="option-label">SỐ LƯỢNG</span>
-          <div class="d-flex align-items-center">
-            <div class="quantity-group border d-flex">
-              <button class="btn" (click)="updateQuantity(-1)">-</button>
-              <input type="text" class="form-control text-center border-0" [value]="quantity" style="width: 50px;">
-              <button class="btn" (click)="updateQuantity(1)">+</button>
-            </div>
+        <div class="d-flex align-items-center mb-3">
+          <span class="label">KÍCH CỠ</span>
+          <div class="d-flex flex-wrap">
+            <button *ngFor="let s of selectedVariant.sizes" 
+                    class="size-btn" 
+                    [class.active]="selectedSizeObj === s"
+                    (click)="selectSize(s)">
+              {{s.size}}
+            </button>
           </div>
         </div>
 
-        <div class="d-flex gap-3">
-          <button class="btn btn-outline-danger px-4 py-2">Thêm Vào Giỏ Hàng</button>
-          <button class="btn btn-danger px-5 py-2">Mua Ngay</button>
+        <div class="d-flex align-items-center mb-4">
+          <span class="label">SỐ LƯỢNG</span>
+          <div class="input-group" style="width: 120px;">
+            <button class="btn btn-outline-secondary" (click)="updateQuantity(-1)">-</button>
+            <input type="text" class="form-control text-center" [(ngModel)]="quantity">
+            <button class="btn btn-outline-secondary" (click)="updateQuantity(1)">+</button>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button class="btn btn-add-cart" (click)="onAddToCart()">
+            <i class="bi bi-cart-plus me-2"></i>Thêm Vào Giỏ Hàng
+          </button>
+          <button class="btn btn-buy-now">Mua Ngay</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- PHẦN CHI TIẾT & MÔ TẢ (HÌNH 2) -->
-  <div class="product-info-section mt-4 shadow-sm p-4 bg-white">
-    <h5 class="section-header">CHI TIẾT SẢN PHẨM</h5>
-    <div class="info-table mt-3">
-      <div class="row mb-2">
-        <div class="col-3 text-muted">Danh Mục</div>
-        <div class="col-9 text-primary">Shopee > Điện thoại & Phụ kiện > Gậy đuôi khỉ</div>
-      </div>
-      <div class="row mb-2">
-        <div class="col-3 text-muted">Loại bảo hành</div>
-        <div class="col-9">Không bảo hành</div>
-      </div>
-      <div class="row mb-2">
-        <div class="col-3 text-muted">Gửi từ</div>
-        <div class="col-9">Hà Nam</div>
-      </div>
+  <div class="product-info-section card border-0 p-4">
+    <h3 class="section-header mb-4">CHI TIẾT SẢN PHẨM</h3>
+    
+    <div class="info-row d-flex mb-3">
+      <div class="info-label text-muted">Danh Mục</div>
+      <div class="info-value text-primary ps-4">{{product.category}}</div>
+    </div>
+    
+    <div class="info-row d-flex mb-3">
+      <div class="info-label text-muted">Loại bảo hành</div>
+      <div class="info-value ps-4">{{product.warranty}}</div>
+    </div>
+    
+    <div class="info-row d-flex mb-3">
+      <div class="info-label text-muted">Gửi từ</div>
+      <div class="info-value ps-4">{{product.from}}</div>
     </div>
 
-    <h5 class="section-header mt-5">MÔ TẢ SẢN PHẨM</h5>
-    <div class="description-content mt-3 text-secondary" style="white-space: pre-line;">
-      {{product?.description}}
+    <h3 class="section-header mt-5 mb-4">MÔ TẢ SẢN PHẨM</h3>
+    <div class="description-content">
+      <p style="white-space: pre-line; line-height: 1.8;">
+        {{product.description}}
+      </p>
     </div>
   </div>
 </div>

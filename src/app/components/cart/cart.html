@@ -1,0 +1,54 @@
+<div class="cart-page-container">
+  <div class="header-section">
+    <i class="bi bi-bag-check-fill icon-cart"></i>
+    <h2 class="fw-bold">Your Shopping Cart</h2>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-lg-7">
+      <app-shipping [currentTotal]="subtotal"></app-shipping>
+
+      <div class="product-list card shadow-sm border-0 p-3 mt-4">
+        @for (p of products; track $index) {
+          <div class="product-item d-flex align-items-center py-3 border-bottom">
+            <input type="checkbox" [(ngModel)]="p.selected" class="form-check-input me-3">
+            
+            <img [src]="p.image" class="product-thumb rounded me-3" style="width: 80px;">
+            
+            <div class="flex-grow-1">
+              <h6 class="fw-bold mb-0">{{p.name}}</h6>
+              <p class="text-muted small mb-1">{{p.description}}</p>
+              <span class="text-primary fw-bold">${{p.price | number:'1.2-2'}}</span>
+            </div>
+
+            <div class="quantity-control d-flex align-items-center">
+              <button class="btn btn-sm" (click)="updateQuantity(p.id, -1)">-</button>
+              <span class="mx-2 fw-bold">{{p.quantity}}</span>
+              <button class="btn btn-sm" (click)="updateQuantity(p.id, 1)">+</button>
+            </div>
+            
+            <i class="bi bi-trash ms-3 text-muted cursor-pointer delete-icon" 
+              (click)="onRemove($index)"
+              title="Xóa sản phẩm">
+            </i>
+          </div>
+        } @empty {
+          <div class="text-center p-5">
+            <p class="text-muted">Giỏ hàng trống.</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <app-voucher (voucherChange)="onVoucherApplied($event)"></app-voucher>
+      
+      <app-oder-summary 
+        [subtotal]="subtotal" 
+        [shipping]="shippingFee"
+        [discount]="discount"
+        [total]="totalPrice">
+      </app-oder-summary>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  padding: 20px;
+}
+
+.info-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  border: 1px solid #eee;
+}
+
+.welcome-title {
+  color: #1a3c7a;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.student-info {
+  margin: 20px 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.student-info p {
+  margin: 10px 0;
+}
+
+.btn-primary {
+  background-color: #2dc1ee;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #1eb0dd;
+}

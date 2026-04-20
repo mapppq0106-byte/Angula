@@ -1,0 +1,16 @@
+<div class="card shadow-sm border-0 p-4 mb-4 voucher-card">
+  <div class="d-flex align-items-center mb-3">
+    <i class="bi bi-tag-fill me-2 promo-icon"></i>
+    <h6 class="mb-0 fw-bold">Promo Code</h6>
+  </div>
+  
+  <div class="select-container">
+    <select class="form-select custom-select" [(ngModel)]="selectedAmount" (change)="applyVoucher()">
+      <option value="0">Select a voucher</option>
+      @for (v of vouchers; track v.code) {
+        <option [value]="v.amount">{{v.label}} ({{v.code}})</option>
+      }
+    </select>
+    <i class="bi bi-chevron-right arrow-icon"></i>
+  </div>
+</div>

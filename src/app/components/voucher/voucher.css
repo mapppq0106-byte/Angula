@@ -1,0 +1,44 @@
+.voucher-card {
+  border-radius: 20px;
+}
+
+.promo-icon {
+  color: #5d5fef; /* Màu xanh tím */
+  font-size: 1.2rem;
+}
+
+/* Container bọc ngoài để định vị icon */
+.select-container {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select {
+  padding: 12px 15px;
+  background-color: #f8faff; /* Màu nền xanh nhạt cực nhẹ */
+  border: 1px solid #e0e7ff;
+  border-radius: 12px;
+  appearance: none; /* Quan trọng: Ẩn mũi tên mặc định của trình duyệt */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.custom-select:focus {
+  border-color: #5d5fef;
+  box-shadow: 0 0 0 0.2rem rgba(93, 95, 239, 0.1);
+  outline: none;
+}
+
+/* Định vị lại icon mũi tên để nó nằm bên trong select */
+.arrow-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%); /* Căn giữa theo chiều dọc */
+  pointer-events: none; /* Cho phép click xuyên qua icon vào select */
+  color: #333;
+  font-size: 0.8rem;
+}

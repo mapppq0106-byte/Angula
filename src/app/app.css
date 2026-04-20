@@ -1,0 +1,52 @@
+/* Container thanh điều hướng */
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 10px 25px;
+  border-radius: 15px;
+}
+
+.nav-brand {
+  color: #007bff;
+  font-size: 1.2rem;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 15px;
+}
+
+/* Style cơ bản cho các nút link */
+.nav-item-link {
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Hiệu ứng Hover */
+.nav-item-link:hover {
+  background-color: #f0f2f5;
+  color: #2dc1ee;
+}
+
+/* STYLE QUAN TRỌNG: Nút sẽ "Xanh lên" khi Active */
+.active-link {
+  background-color: #2dc1ee !important; /* Màu xanh của bạn */
+  color: white !important;
+  box-shadow: 0 4px 10px rgba(45, 193, 238, 0.4);
+}
+
+/* Style cho phần Header giỏ hàng */
+.cart-header {
+  border-radius: 20px !important;
+  background: #f8f9fa !important;
+}
+
+.header-icon, .header-title {
+  color: #1a3c7a;
+}

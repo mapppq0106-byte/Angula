@@ -1,34 +1,42 @@
-<nav style="padding: 15px; background: #2c3e50; color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-  <ul style="list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; align-items: center;">
+<div class="container mt-4">
+  <nav class="nav-container shadow-sm mb-4">
+    <div class="nav-brand fw-bold">STORE</div>
     
-    <li>
-      <a routerLink="/new-user" 
-         routerLinkActive="active-link" 
-         [routerLinkActiveOptions]="{exact: true}"
-         style="color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
-        New User
+    <div class="nav-menu">
+      <a routerLink="/home" routerLinkActive="active-link" class="nav-item-link">
+         <i class="bi bi-house-door me-1"></i> HOME
       </a>
-    </li>
 
-    <li>
-      <a routerLink="/user-posts" 
-         routerLinkActive="active-link" 
-         style="color: white; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
-        User Posts (ID: 7984625)
+      <a routerLink="/product" routerLinkActive="active-link" class="nav-item-link">
+          <i class="bi bi-tag me-1"></i> PRODUCT
       </a>
-    </li>
 
-  </ul>
-</nav>
+      <a routerLink="/cart" routerLinkActive="active-link" class="nav-item-link">
+          <i class="bi bi-cart3 me-1"></i> CART
+      </a>
+    </div>
+  </nav>
 
-<div style="padding: 30px; background-color: #f8f9fa; min-height: 100vh;">
+  @if (isProductPage()) {
+    <!-- <div class="cart-header card shadow-sm p-4 mb-4 border-0">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div class="d-flex align-items-center">
+          <i class="bi bi-cart3 fs-2 me-3 header-icon"></i>
+          <h2 class="mb-0 header-title">Giỏ hàng của bạn</h2>
+        </div>
+        
+        <div class="text-end">
+          <span class="text-muted d-block small">Tổng cộng thanh toán:</span>
+          <h2 class="text-danger mb-0 fw-bold">₱{{ totalOrderPrice | number }}</h2>
+        </div>
+      </div>
+    </div> -->
+
+    <app-name 
+      [productList]="products" 
+      (totalChange)="onTotalUpdated($event)">
+    </app-name>
+  }
+
   <router-outlet></router-outlet>
 </div>
-
-<style>
-  .active-link {
-    border-bottom: 3px solid #3498db;
-    padding-bottom: 5px;
-    color: #3498db !important;
-  }
-</style>

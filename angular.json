@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "slide5": {
+    "slide3": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -74,10 +74,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "slide5:build:production"
+              "buildTarget": "slide3:build:production"
             },
             "development": {
-              "buildTarget": "slide5:build:development"
+              "buildTarget": "slide3:build:development"
             }
           },
           "defaultConfiguration": "development"

@@ -1,38 +1,53 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http';
+import { CommonModule, registerLocaleData } from '@angular/common'; // Thêm CommonModule để dùng các pipe mặc định
+import { FormsModule } from '@angular/forms';
+import localeVi from '@angular/common/locales/vi'; // Import định dạng tiếng Việt (tùy chọn)
+
+// Đăng ký định dạng vùng miền (giúp hiển thị dấu phẩy/chấm ở phần tiền tệ chính xác)
+registerLocaleData(localeVi);
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
-import { UserForm } from './user-form/user-form';
-import { Api } from './api/api';
-import { UserList } from './user-list/user-list';
-import { UserItem } from './user-item/user-item';
-import { UserCreate } from './user-create/user-create';
-import { UserEdit } from './user-edit/user-edit';
-import { UserDetail } from './user-detail/user-detail';
+
+// Import các Components trong thư mục gốc
+import { Name } from './name/name';
+import { ProductDetail } from './product-detail/product-detail';
+import { Home } from './home/home';
+
+// Import các Components trong thư mục components/cart
+import { Cart } from './components/cart/cart';
+import { Shipping } from './components/shipping/shipping';
+import { Voucher } from './components/voucher/voucher';
+import { OderSummary } from './components/oder-summary/oder-summary';
+
+// Import Service (Mặc định dùng providedIn: 'root' nên không cần cho vào providers, 
+// nhưng nếu bạn muốn chắc chắn thì import ở đây)
+import { CartService } from './services/cart.service';
 
 @NgModule({
+  // Danh sách tất cả các Component bạn đã tạo
   declarations: [
     App,
-    Api,
-    UserList,
-    UserItem,
-    UserCreate,
-    UserEdit,
-    UserDetail,
+    Name,
+    ProductDetail,
+    Home,
+    Cart,
+    Shipping,
+    Voucher,
+    OderSummary
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule, // Hỗ trợ xử lý Form Validation
-    UserForm, // Standalone Component thì phải import vào đây
+    CommonModule,     // Hỗ trợ các directive như *ngIf, *ngFor (nếu không dùng @if/@for mới)
+    AppRoutingModule, // Quản lý chuyển trang (Router)
+    FormsModule,      // Rất quan trọng: cho phép sử dụng [(ngModel)] ở trang Cart và Detail
   ],
   providers: [
-    provideBrowserGlobalErrorListeners(),
+    provideBrowserGlobalErrorListeners(), 
     provideClientHydration(withEventReplay()),
-    provideHttpClient(), // Hỗ trợ gọi API lấy bài viết từ server
+    // Bạn có thể thêm locale vào đây nếu muốn mặc định định dạng số cho toàn app
+    // { provide: LOCALE_ID, useValue: 'vi-VN' }
   ],
   bootstrap: [App],
 })
